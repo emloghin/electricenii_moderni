@@ -1,0 +1,22 @@
+---
+import MicroLabel from './MicroLabel.astro';
+
+interface Props {
+  label: string;
+  title: string;
+  lead?: string;
+  tone?: 'lime' | 'cyan' | 'mist';
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const { label, title, lead, tone = 'lime', align = 'left', class: className = '' } = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center items-center mx-auto' : 'text-left items-start';
+---
+
+<div class={`flex flex-col gap-4 ${alignClass} ${className}`}>
+  <MicroLabel tone={tone}>{label}</MicroLabel>
+  <h2 class="font-d3-display text-3xl md:text-5xl font-semibold tracking-tight text-d3-chalk">{title}</h2>
+  {lead && <p class="max-w-2xl text-d3-mist text-base md:text-lg leading-relaxed">{lead}</p>}
+</div>

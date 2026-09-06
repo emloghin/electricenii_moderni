@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import ProjectFlagship from './ProjectFlagship.astro';
+import ProjectTile from './ProjectTile.astro';
+
+const sorted = (await getCollection('projects')).sort(
+  (a, b) => b.data.year - a.data.year || a.data.order - b.data.order
+);
+const [flagship, ...rest] = sorted;
+---
+
+{flagship && (
+  <section id="proiecte" class="py-20 md:py-28">
+    <Container class="flex flex-col gap-10">
+      <SectionHeading
+        label="Proiecte"
+        title="Proiectul nostru de referință"
+        lead="Experiența echipei este construită pe acest proiect — casa fondatorului, cu instalație electrică și smart home executate integral de el însuși."
+      />
+
+      <ProjectFlagship project={flagship} />
+
+      {rest.length > 0 && (
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          {rest.map((project) => (
+            <ProjectTile project={project} />
+          ))}
+        </div>
+      )}
+    </Container>
+  </section>
+)}

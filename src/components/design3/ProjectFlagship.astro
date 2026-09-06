@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import MicroLabel from './MicroLabel.astro';
+import Chip from './Chip.astro';
+import VideoEmbed from '../shared/VideoEmbed.astro';
+
+interface Props {
+  project: any;
+}
+
+const { project } = Astro.props;
+const { title, location, year, summary, image, imageAlt, tags, video, videoTitle } = project.data;
+const { Content } = await render(project);
+const videoIsEmbed = video?.startsWith('http');
+---
+
+<div class="d3-sheen overflow-hidden rounded-d3-panel border border-d3-edge bg-d3-graphite">
+  <div class="flex flex-col lg:flex-row">
+    <div class="relative aspect-[4/3] w-full lg:aspect-auto lg:w-1/2">
+      <div class="d3-glow pointer-events-none absolute inset-0 z-0"></div>
+      {image ? (
+        <>
+          <Image src={image} alt={imageAlt ?? title} class="absolute inset-0 h-full w-full object-cover" width={900} height={700} />
+          <div class="absolute inset-0 bg-d3-obsidian/55"></div>
+          <div class="absolute inset-0 bg-d3-lime/10"></div>
+        </>
+      ) : (
+        <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-d3-graphite-2 to-d3-obsidian">
+          <p class="px-6 text-center font-d3-display text-xl font-semibold text-d3-chalk">{title}</p>
+        </div>
+      )}
+    </div>
+
+    <div class="flex flex-1 flex-col gap-5 p-8 md:p-10">
+      <div class="flex flex-wrap gap-3">
+        <MicroLabel tone="lime">{year}</MicroLabel>
+        <MicroLabel tone="mist">{location}</MicroLabel>
+      </div>
+      <h3 class="font-d3-display text-2xl font-semibold tracking-tight text-d3-chalk md:text-3xl">{title}</h3>
+      <p class="text-base leading-relaxed text-d3-mist">{summary}</p>
+      <div class="prose-d3 space-y-3 text-sm leading-relaxed text-d3-mist md:text-base">
+        <Content />
+      </div>
+
+      {video && (
+        <div class="mt-2 overflow-hidden rounded-d3-tile border border-d3-edge">
+          <VideoEmbed
+            embedUrl={videoIsEmbed ? video : undefined}
+            src={videoIsEmbed ? undefined : video}
+            title={videoTitle ?? title}
+          />
+        </div>
+      )}
+
+      {tags.length > 0 && (
+        <ul class="mt-2 flex flex-wrap gap-2">
+          {tags.map((tag: string) => (
+            <li><Chip tone="lime">{tag}</Chip></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+---
+interface Props {
+  hover?: boolean;
+  class?: string;
+  as?: keyof HTMLElementTagNameMap;
+}
+
+const { hover = false, class: className = '', as: Tag = 'div' } = Astro.props;
+
+const hoverClass = hover ? 'transition-colors duration-200 hover:bg-d3-graphite-2' : '';
+---
+
+<Tag class={`bg-d3-graphite rounded-d3-tile border border-d3-edge d3-sheen p-6 md:p-8 ${hoverClass} ${className}`}>
+  <slot />
+</Tag>

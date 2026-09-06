@@ -1,0 +1,18 @@
+---
+interface Props {
+  tone?: 'lime' | 'cyan' | 'mist';
+  class?: string;
+}
+
+const { tone = 'lime', class: className = '' } = Astro.props;
+
+const toneClass = {
+  lime: 'border-d3-lime/40 text-d3-lime',
+  cyan: 'border-d3-cyan/40 text-d3-cyan',
+  mist: 'border-d3-edge text-d3-mist',
+}[tone];
+---
+
+<span class={`inline-flex items-center rounded-d3-btn border px-3 py-1 text-xs font-semibold uppercase tracking-wide ${toneClass} ${className}`}>
+  <slot />
+</span>

@@ -284,6 +284,114 @@ Committed everything (`d138c2f` + this follow-up) to `dev` and pushed to
 **Result**: Definition of Done met — site builds and runs, both designs and
 the neutral `/designs` index all serve correctly, Design 1 verified unchanged.
 
+## 2026-09-07 — Design 3 "Curent Premium" shipped
+
+Built and shipped Design 3 of 5, following `specs/003-design-3-homepage/tasks.md`
+(T001–T035 in order), at new route `/design-3`, additions-only per the plan's
+immutable-files list — Design 1 and Design 2 files verified byte-for-byte
+unchanged (`git diff --stat` empty across every listed path).
+
+**What was built**
+- Additive `d3-*` tokens/utilities appended to `src/styles/global.css`
+  (obsidian/abyss/graphite/graphite-2/lime/lime-deep/cyan/chalk/mist/edge
+  colors, Sora display + Manrope body fonts, soft-square radii `d3-tile`
+  (1rem)/`d3-panel` (1.25rem)/`d3-btn` (0.75rem), `shadow-d3-glow`/
+  `shadow-d3-tile`, `.d3-glow` radial bloom, `.d3-sheen` top-down light
+  gradient) — zero existing token/utility touched.
+- `src/layouts/Design3Layout.astro` — own Google Fonts `<link>` (Sora +
+  Manrope), `bg-d3-obsidian font-d3-body text-d3-chalk` body; does not import
+  or extend `BaseLayout.astro`/`Design2Layout.astro`.
+- All new components under `src/components/design3/` (19 files): primitives
+  `Container`/`MicroLabel`/`Tile`/`Button`/`Chip`/`SectionHeading`; `Header`
+  (sticky, backdrop-blur, mobile menu via inline `<script>`, nav stays in the
+  DOM — reachable — without JS); `Hero` (centered, `.d3-glow` bloom, single
+  H1, primary+ghost CTA, `SpecStrip` of 4 factual capability lines, zero
+  counts/percentages); `Services`/`ServiceTile` (bento grid, featured tile
+  `col-span-2 row-span-2` per plan D-011, absorbs any tile count without
+  stranding); `About`/`FactTile` (wide graphite panel, 3 honest fact tiles, no
+  invented stats); `Projects`/`ProjectFlagship`/`ProjectTile` (full-bleed
+  flagship case-study panel with the D-006 dark+lime tint overlay on the
+  reused blueprint SVG, singular "Proiectul nostru de referință" framing,
+  optional `VideoEmbed` import per D-014 — not exercised today since the real
+  project carries no `video` field); `Testimonials`/`TestimonialSpotlight`
+  (single centered spotlight quote today, auto-switches to a 2-up grid if a
+  2nd testimonial is added); `ServiceAreas` (county `Chip`s + coverage line);
+  `Contact` (the page's only lime-filled band, `tel:`/`mailto:` links, no
+  form); `Footer` (`bg-d3-abyss`, build-time year).
+- `src/pages/design-3.astro` composes all bands in spec FR-005 order; single
+  `<h1>` confirmed.
+- `src/pages/designs.astro` — one line appended for Design 3; nothing else on
+  the page changed (confirmed via `git diff`, single added line).
+- Same content collections reused unchanged; zero schema/data edits.
+
+**Verification performed**
+- `npm run build` exits 0; all 4 routes (`/`, `/design-2`, `/design-3`,
+  `/designs`) generated.
+- Isolation audit (T032): grepped `src/components/design3/**`,
+  `src/pages/design-3.astro`, `src/layouts/Design3Layout.astro` for Design 1
+  DNA (`blueprint`, `accent-500`, `ink-900`, `ink-600`, `hairline`,
+  `font-mono`, `bg-blueprint-grid`, `rounded-none`) and Design 2 DNA (`d2-`,
+  `Fraunces`, `Nunito`, `.d2-noise`, `.d2-glow`, `rounded-full`) — zero matches
+  for both.
+- Regression check (T031): `git diff --stat` against every file on Design 1's
+  and Design 2's immutable list — empty diff, confirming byte-for-byte
+  unchanged. `git diff` on `global.css` and `designs.astro` confirmed
+  additive-only changes (no existing line altered or removed).
+- Responsive/overflow check (Playwright, scratch chromium installed outside
+  the repo — not a project dependency) at 375/768/1440px on all four routes:
+  `scrollWidth === clientWidth` everywhere, zero horizontal overflow. Mobile
+  hamburger menu toggle verified to open the nav panel.
+- Content audit: exactly one `<h1>`; "I7" and "Home Assistant" both present;
+  all four counties (Neamț, Suceava, Iași, Botoșani) present (rendered as
+  uppercase chips via CSS `text-transform`, matched case-insensitively); no
+  invented project count, client count, years-in-business figure,
+  certification or award anywhere on the page.
+- Content-as-data + honesty proof (T033): added one throwaway `.md` file to
+  each of services/projects/testimonials, rebuilt — the services bento
+  absorbed a 5th tile without stranding one, `Projects` correctly resorted by
+  year (temp 2025 entry became the new flagship, the real 2024 project
+  rendered as a `ProjectTile` below it — proving the "no code change" resort
+  logic), `Testimonials` switched from the single spotlight to a `md:grid-
+  cols-2` two-up grid. Deleted the three throwaway files afterwards and
+  rebuilt clean (`git status --porcelain` shows no residual content changes).
+- Full-page screenshots at 1440px and 375px (scratch Playwright, not a
+  dependency) confirm: fully dark page throughout (no white/cream band
+  anywhere), bento service grid with a 2-column featured tile, glowing hero,
+  flagship project panel with the SVG re-tinted lime/dark (not navy), single
+  centered spotlight quote, county chip panel, and the lime-filled contact
+  band as clearly the brightest element on the page — reads unmistakably
+  different from both Design 1 (navy/blueprint/sharp corners) and Design 2
+  (cream/terracotta/oversized radii/pills).
+
+**impeccable-design QA gate — all ✅, no blockers**
+1. Spacing — ✅ one scale throughout (`py-20/28` sections, `gap-4/5` bento,
+   `p-6/8` tiles).
+2. Type scale — ✅ Sora (display, large/tight) + Manrope (body), no
+   improvised extra sizes, no mono, no serif.
+3. Color system — ✅ obsidian/graphite neutrals + one lime primary + sparing
+   cyan secondary (smart category only); zero one-off hex in `design3/`.
+4. No placeholder feel — ✅ real Romanian copy everywhere; the single project
+   reads as an intentional flagship case study, the single testimonial as an
+   intentional spotlight, not a sparse grid.
+5. Responsive (375/768/1440) — ✅ zero overflow; mobile menu opens and stays
+   reachable without JS (stacked markup, not JS-injected).
+6. Visual hierarchy — ✅ the lime contact band and lime primary CTA are the
+   only high-saturation lime fills on the page — unmistakably the most
+   prominent elements.
+7. Consistency — ✅ every tile/chip/button/heading shares the same
+   soft-square radius + `Tile`/`Container`/`SectionHeading` primitives.
+8. Distinct identity — ✅ dark bento vs Design 1's light symmetric grid and
+   Design 2's cream editorial rows; zero shared tokens/classnames (isolation
+   audit above).
+9. Content honesty — ✅ no invented project, client, testimonial, count,
+   certification or award found anywhere on the page.
+
+**Result**: Definition of Done met — `npm run build` exits 0, all 4 routes
+render, Designs 1 and 2 verified byte-for-byte unchanged, Design 3 ships.
+Did not start Design 4 (per constitution, one design at a time) — noted that
+`specs/004-design-4-homepage/` appeared mid-task from a concurrently running
+SpecKit agent; left entirely untouched, out of scope for this task.
+
 
 ## Documentation task: MAINTENANCE.md + small video/audio extension
 

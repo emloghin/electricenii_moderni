@@ -1,0 +1,17 @@
+---
+import Tile from './Tile.astro';
+import MicroLabel from './MicroLabel.astro';
+
+interface Props {
+  label: string;
+  text: string;
+  class?: string;
+}
+
+const { label, text, class: className = '' } = Astro.props;
+---
+
+<Tile class={`p-5 md:p-6 ${className}`}>
+  <MicroLabel tone="lime">{label}</MicroLabel>
+  <p class="mt-2 text-sm leading-relaxed text-d3-chalk md:text-base">{text}</p>
+</Tile>

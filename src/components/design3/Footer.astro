@@ -1,0 +1,21 @@
+---
+import { site } from '../../data/site';
+import Container from './Container.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-d3-edge bg-d3-abyss py-10">
+  <Container class="flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
+    <div>
+      <p class="font-d3-display text-base font-semibold text-d3-chalk">{site.name}</p>
+      <p class="mt-1 text-sm text-d3-mist">Instalații electrice conforme normativului I7, integrate cu Home Assistant.</p>
+    </div>
+
+    <div class="flex flex-col items-center gap-1 sm:items-end">
+      <a href={site.phoneHref} class="text-sm text-d3-mist hover:text-d3-chalk">{site.phone}</a>
+      <a href={site.emailHref} class="text-sm text-d3-mist hover:text-d3-chalk">{site.email}</a>
+      <p class="text-xs text-d3-mist">&copy; {year} {site.name}</p>
+    </div>
+  </Container>
+</footer>

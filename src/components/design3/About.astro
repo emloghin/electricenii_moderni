@@ -1,0 +1,36 @@
+---
+import Container from './Container.astro';
+import MicroLabel from './MicroLabel.astro';
+import FactTile from './FactTile.astro';
+---
+
+<section id="despre" class="py-20 md:py-28">
+  <Container>
+    <div class="d3-sheen flex flex-col gap-10 rounded-d3-panel border border-d3-edge bg-d3-graphite p-8 md:flex-row md:gap-12 md:p-12">
+      <div class="flex flex-1 flex-col gap-5">
+        <MicroLabel tone="lime">Despre echipă</MicroLabel>
+        <h2 class="font-d3-display text-3xl font-semibold tracking-tight text-d3-chalk md:text-4xl">
+          Construim ce am testat chiar noi, acasă
+        </h2>
+        <p class="text-base leading-relaxed text-d3-mist md:text-lg">
+          Fondatorul echipei și-a proiectat și executat singur instalația
+          electrică a propriei case pasive din Piatra Neamț, conform
+          normativului I7, apoi a integrat-o cu Home Assistant — iluminat,
+          prize, pompă de căldură și recuperator de aer, toate controlate
+          local, fără cloud.
+        </p>
+        <p class="text-base leading-relaxed text-d3-mist md:text-lg">
+          Experiența acumulată acolo stă la baza modului în care proiectăm
+          fiecare instalație pentru clienți: robustă, documentată și fără
+          dependență de servicii terțe.
+        </p>
+      </div>
+
+      <div class="flex flex-1 flex-col gap-4">
+        <FactTile label="Proiect propriu" text="Casa pasivă a fondatorului" />
+        <FactTile label="Automatizare" text="Locală, fără cloud, pe Home Assistant" />
+        <FactTile label="Execuție" text="Conform normativului I7" />
+      </div>
+    </div>
+  </Container>
+</section>

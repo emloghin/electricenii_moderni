@@ -1,0 +1,18 @@
+---
+interface Props {
+  tone?: 'lime' | 'cyan' | 'mist';
+  class?: string;
+}
+
+const { tone = 'lime', class: className = '' } = Astro.props;
+
+const toneClass = {
+  lime: 'text-d3-lime',
+  cyan: 'text-d3-cyan',
+  mist: 'text-d3-mist',
+}[tone];
+---
+
+<p class={`text-xs uppercase tracking-[0.18em] font-d3-body font-semibold ${toneClass} ${className}`}>
+  <slot />
+</p>

@@ -1,0 +1,14 @@
+---
+const items = [
+  'Conform normativului I7',
+  'Home Assistant, local, fără cloud',
+  'Tablouri și protecții',
+  'Neamț · toată țara',
+];
+---
+
+<div class="grid grid-cols-2 gap-x-6 gap-y-4 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-0 sm:divide-x sm:divide-d3-edge">
+  {items.map((item) => (
+    <p class="text-sm text-d3-mist sm:px-6 first:sm:pl-0 last:sm:pr-0">{item}</p>
+  ))}
+</div>

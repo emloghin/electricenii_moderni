@@ -1,0 +1,29 @@
+---
+import { site } from '../../data/site';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import Chip from './Chip.astro';
+import Button from './Button.astro';
+---
+
+<section id="zone" class="py-20 md:py-28">
+  <Container>
+    <div class="d3-sheen flex flex-col gap-8 rounded-d3-panel border border-d3-edge bg-d3-graphite p-8 md:p-12">
+      <SectionHeading
+        label="Zone deservite"
+        title="Unde lucrăm"
+        lead={site.coverageLine}
+      />
+
+      <div class="flex flex-wrap gap-3">
+        {site.counties.map((county) => (
+          <Chip tone="lime">{county}</Chip>
+        ))}
+      </div>
+
+      <div>
+        <Button href="#contact" variant="ghost">Verifică disponibilitatea</Button>
+      </div>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,78 @@
+---
+import { site } from '../../data/site';
+import Button from './Button.astro';
+
+const navLinks = [
+  { href: '#servicii', label: 'Servicii' },
+  { href: '#despre', label: 'Despre echipă' },
+  { href: '#proiecte', label: 'Proiecte' },
+  { href: '#testimoniale', label: 'Testimoniale' },
+  { href: '#zone', label: 'Zone deservite' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-d3-edge bg-d3-obsidian/80 backdrop-blur">
+  <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
+    <a href="#" class="font-d3-display text-lg font-semibold tracking-tight text-d3-chalk">
+      {site.name}
+    </a>
+
+    <nav class="hidden items-center gap-6 lg:flex">
+      {navLinks.map((link) => (
+        <a href={link.href} class="text-sm text-d3-mist transition-colors duration-200 hover:text-d3-chalk">
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden lg:block">
+      <Button href="#contact" variant="primary">Cere ofertă</Button>
+    </div>
+
+    <button
+      id="d3-menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="d3-mobile-nav"
+      class="inline-flex items-center justify-center rounded-d3-btn border border-d3-edge p-2 text-d3-chalk lg:hidden"
+    >
+      <span class="sr-only">Deschide meniul</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="d3-mobile-nav" class="hidden flex-col gap-1 border-t border-d3-edge bg-d3-obsidian px-5 pb-6 pt-2 lg:hidden">
+    {navLinks.map((link) => (
+      <a href={link.href} class="rounded-d3-btn px-2 py-3 text-base text-d3-mist transition-colors duration-200 hover:bg-d3-graphite-2 hover:text-d3-chalk">
+        {link.label}
+      </a>
+    ))}
+    <a href="#contact" class="mt-2 inline-flex items-center justify-center rounded-d3-btn bg-d3-lime px-6 py-3 text-sm font-semibold text-d3-obsidian shadow-d3-glow">
+      Cere ofertă
+    </a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('d3-menu-toggle');
+  const nav = document.getElementById('d3-mobile-nav');
+
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('flex');
+      nav.classList.toggle('hidden', !isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.classList.add('hidden');
+        nav.classList.remove('flex');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

@@ -1,0 +1,25 @@
+---
+import Tile from './Tile.astro';
+import MicroLabel from './MicroLabel.astro';
+import Chip from './Chip.astro';
+
+interface Props {
+  project: any;
+}
+
+const { project } = Astro.props;
+const { title, location, year, summary, tags } = project.data;
+---
+
+<Tile hover class="flex h-full flex-col gap-3">
+  <MicroLabel tone="mist">{location} · {year}</MicroLabel>
+  <h3 class="font-d3-display text-lg font-semibold tracking-tight text-d3-chalk">{title}</h3>
+  <p class="flex-1 text-sm leading-relaxed text-d3-mist">{summary}</p>
+  {tags.length > 0 && (
+    <ul class="flex flex-wrap gap-2">
+      {tags.map((tag: string) => (
+        <li><Chip tone="lime">{tag}</Chip></li>
+      ))}
+    </ul>
+  )}
+</Tile>

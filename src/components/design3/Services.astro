@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import ServiceTile from './ServiceTile.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const featuredEntry = services.find((s) => s.data.featured) ?? services[0];
+---
+
+{services.length > 0 && (
+  <section id="servicii" class="py-20 md:py-28">
+    <Container class="flex flex-col gap-10">
+      <SectionHeading
+        label="Ce facem"
+        title="Servicii electrice și smart home"
+        lead="De la instalația electrică de bază la integrarea completă cu Home Assistant."
+      />
+
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+        {services.map((service) => (
+          <ServiceTile service={service} featured={service.id === featuredEntry.id} />
+        ))}
+      </div>
+    </Container>
+  </section>
+)}

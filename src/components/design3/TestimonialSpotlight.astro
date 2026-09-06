@@ -1,0 +1,25 @@
+---
+import { render } from 'astro:content';
+import MicroLabel from './MicroLabel.astro';
+
+interface Props {
+  testimonial: any;
+  compact?: boolean;
+}
+
+const { testimonial, compact = false } = Astro.props;
+const { author, location, role } = testimonial.data;
+const { Content } = await render(testimonial);
+---
+
+<div class="flex flex-col items-center gap-6 text-center">
+  <span class={`font-d3-display text-d3-lime ${compact ? 'text-4xl' : 'text-6xl'}`} aria-hidden="true">&ldquo;</span>
+  <blockquote class={`max-w-3xl font-d3-display font-semibold leading-snug text-d3-chalk ${compact ? 'text-xl md:text-2xl' : 'text-2xl md:text-4xl'}`}>
+    <Content />
+  </blockquote>
+  <div class="flex flex-col gap-1">
+    <MicroLabel tone="lime">{author}</MicroLabel>
+    {role && <p class="text-sm text-d3-mist">{role}</p>}
+    <p class="text-sm text-d3-mist">{location}</p>
+  </div>
+</div>

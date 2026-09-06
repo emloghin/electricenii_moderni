@@ -34,6 +34,27 @@
   --radius-d2-panel: 2rem;
   --shadow-d2-soft: 0 8px 24px -12px rgba(51, 41, 31, .18);
   --shadow-d2-lift: 0 20px 40px -20px rgba(51, 41, 31, .28);
+
+  /* Design 3 — "Curent Premium" tokens (additive only, see specs/003-design-3-homepage) */
+  --color-d3-obsidian: #08090B;
+  --color-d3-abyss: #040406;
+  --color-d3-graphite: #12141A;
+  --color-d3-graphite-2: #1A1E26;
+  --color-d3-lime: #C8F94E;
+  --color-d3-lime-deep: #A8DC24;
+  --color-d3-cyan: #4FD6E8;
+  --color-d3-chalk: #F2F4F7;
+  --color-d3-mist: #9BA3B0;
+  --color-d3-edge: rgba(255, 255, 255, 0.07);
+
+  --font-d3-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-d3-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-d3-tile: 1rem;
+  --radius-d3-panel: 1.25rem;
+  --radius-d3-btn: 0.75rem;
+  --shadow-d3-glow: 0 0 48px -12px rgba(200, 249, 78, 0.45);
+  --shadow-d3-tile: 0 24px 48px -32px rgba(0, 0, 0, 0.9);
 }
 
 @layer utilities {
@@ -55,5 +76,14 @@
 
   .d2-glow {
     background-image: radial-gradient(60% 60% at 70% 30%, rgba(194, 112, 61, .20), transparent 70%);
+  }
+
+  /* Design 3 — "Curent Premium" utilities (additive only) */
+  .d3-glow {
+    background-image: radial-gradient(50% 50% at 65% 35%, rgba(200, 249, 78, .18), transparent 70%);
+  }
+
+  .d3-sheen {
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, .06), transparent 40%);
   }
 }
