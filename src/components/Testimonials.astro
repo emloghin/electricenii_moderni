@@ -13,10 +13,10 @@ const entries = (await getCollection('testimonials')).sort((a, b) => a.data.orde
       <Container>
         <SectionHeading
           index="04"
-          eyebrow="Ce spun clienții"
-          title="Testimoniale"
+          eyebrow="Testat chiar de noi"
+          title="Experiența fondatorului"
         />
-        <div class="grid gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+        <div class:list={["grid gap-6 md:gap-8", entries.length === 1 ? "mx-auto max-w-xl" : "md:grid-cols-2 lg:grid-cols-3"]}>
           {entries.map((entry) => (
             <TestimonialCard
               quote={entry.body?.trim() ?? ''}

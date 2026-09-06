@@ -231,6 +231,38 @@ collections it reads from.
   no fabricated testimonial names remain; the new founder testimonial and the
   one real project render correctly there too, via the same shared collections.
 - Cleaned up all scratch debug scripts/screenshots from repo root.
+
+## Git bootstrap + follow-up: content correction wasn't visible remotely
+
+Discovered that the entire repo (Design 1 AND Design 2, plus all specs/
+squad state) had never been committed — `origin/main` had zero `src/` files
+and no `dev` branch existed, so the content-honesty fix above was correct
+locally but invisible to anyone looking at GitHub. Created `dev` (per the
+squad three-branch model, since it didn't exist) from the current state and
+pushed it to `origin/dev`. This is a one-time repo bootstrap, not a normal
+feature-branch flow, since `main`/`dev` had no prior history to branch from
+for this work.
+
+Also, while investigating, found an already-half-applied but never-committed
+tweak to Design 1's `Projects.astro`/`Testimonials.astro` (centers the grid
+to a single card and swaps in honest single-item copy — "Suntem la început de
+drum" / "Testat chiar de noi" / "Experiența fondatorului" — instead of the
+original plural "Proiecte anterioare"/"Ce spun clienții" framing) that exactly
+matches what the client asked for in a follow-up message: don't let Design 1's
+project/testimonial sections look like a broken/sparse grid with only 1 real
+item. Finished it off (added a `title={projects.length === 1 ? 'Proiectul
+nostru' : 'Proiecte anterioare'}` conditional) and verified:
+- `npm run build` ✅, zero overflow at 375/768/1440px on `/`.
+- Screenshots confirm Design 1's Projects section now shows a single centered
+  "Proiectul nostru" card (not a 3-col grid with 2 empty slots), and
+  Testimonials shows a single centered "Experiența fondatorului" card — both
+  read as intentional, not broken.
+- This is a narrow, explicitly client-approved exception to the original
+  "don't touch Design 1" rule, scoped only to graceful single-item layout +
+  honest copy, not a visual-identity change (Design 1's blueprint/monospace/
+  navy identity is unchanged).
+Committed everything (`d138c2f` + this follow-up) to `dev` and pushed to
+`origin/dev`.
 4. No placeholder feel — ✅ real Romanian copy, real project imagery
    (re-tinted, not empty boxes), real testimonials.
 5. Responsive (375/1440) — ✅ zero overflow; mobile hamburger opens/closes and

@@ -17,10 +17,10 @@ const projects = (await getCollection('projects')).sort((a, b) => {
         <SectionHeading
           index="03"
           eyebrow="Ce am construit"
-          title="Proiecte anterioare"
-          subtitle="O selecție de lucrări finalizate, de la instalații clasice la case complet automatizate."
+          title={projects.length === 1 ? 'Proiectul nostru' : 'Proiecte anterioare'}
+          subtitle="Suntem la început de drum — iată primul nostru proiect finalizat."
         />
-        <div class="grid gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+        <div class:list={["grid gap-6 md:gap-8", projects.length === 1 ? "mx-auto max-w-xl" : "md:grid-cols-2 lg:grid-cols-3"]}>
           {projects.map((project) => (
             <ProjectCard
               title={project.data.title}
