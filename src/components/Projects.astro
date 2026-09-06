@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import ProjectCard from './ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => {
+  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
+  return a.data.order - b.data.order;
+});
+---
+
+{
+  projects.length > 0 && (
+    <section id="proiecte" class="bg-surface py-16 md:py-24 lg:py-28">
+      <Container>
+        <SectionHeading
+          index="03"
+          eyebrow="Ce am construit"
+          title="Proiecte anterioare"
+          subtitle="O selecție de lucrări finalizate, de la instalații clasice la case complet automatizate."
+        />
+        <div class="grid gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+          {projects.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              location={project.data.location}
+              year={project.data.year}
+              summary={project.data.summary}
+              tags={project.data.tags}
+              image={project.data.image}
+              imageAlt={project.data.imageAlt}
+            />
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}

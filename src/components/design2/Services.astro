@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import ServiceRow from './ServiceRow.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+
+{
+  services.length > 0 && (
+    <section id="servicii" class="bg-d2-sand py-20 md:py-28 lg:py-32">
+      <Container>
+        <SectionHeading
+          eyebrow="Ce facem"
+          title="Instalații clasice și smart home, sub același acoperiș"
+          lead="De la tabloul electric la automatizările din Home Assistant, ne ocupăm de tot traseul instalației, fără compromisuri la siguranță."
+        />
+        <div class="space-y-16 md:space-y-24">
+          {services.map((entry, index) => (
+            <ServiceRow entry={entry} reversed={index % 2 === 1} />
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}

@@ -1,4 +1,6 @@
 {
-  "universe_usage_history": [],
-  "assignment_cast_snapshots": {}
+  "universe_usage_history": ["descriptive"],
+  "assignment_cast_snapshots": {
+    "2026-09-06-init": { "universe": "descriptive", "agents": ["SpecKit", "Builder", "Smoke"] }
+  }
 }

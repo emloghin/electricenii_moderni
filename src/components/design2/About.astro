@@ -1,0 +1,54 @@
+---
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const facts = [
+  { label: 'Proiectul nostru emblematic', value: 'Casă pasivă' },
+  { label: 'Instalație conformă', value: 'Normativ I7' },
+  { label: 'Home Assistant', value: '100% local' },
+  { label: 'Garanție și documentație', value: '2 ani' },
+];
+---
+
+<section id="despre" class="bg-d2-cream py-20 md:py-28 lg:py-32">
+  <Container>
+    <SectionHeading eyebrow="Despre echipă" title="Am construit-o întâi pentru noi înșine" />
+    <div class="flex flex-col gap-12 lg:grid lg:grid-cols-2 lg:items-start">
+      <div class="min-w-0 space-y-5 text-base leading-relaxed text-d2-muted md:text-lg">
+        <p>
+          Totul a pornit de la casa pasivă a fondatorului, în Piatra Neamț: și-a
+          proiectat singur instalația electrică, a cablat-o conform normativului
+          I7 și a integrat-o cu Home Assistant, controlat local, fără dependență
+          de servere din cloud. Din acea experiență s-a născut modul în care
+          echipa lucrează azi pentru fiecare client.
+        </p>
+        <p>
+          Fiecare lucrare pe care o executăm respectă întocmai normativul I7 —
+          circuite dedicate, protecții diferențiale, prize de pământ verificate
+          și un proces-verbal de recepție la final. Iar acolo unde clientul
+          își dorește un smart home, îl construim pe aceleași principii ca
+          la noi acasă: robust, documentat și fără cutii negre.
+        </p>
+      </div>
+      <div class="relative mt-4 min-w-0 lg:mt-0">
+        <div class="flex flex-col gap-4 lg:relative lg:block lg:h-96">
+          {facts.map((fact, index) => (
+            <div
+              class:list={[
+                'rounded-[var(--radius-d2-card)] bg-d2-cream p-6 shadow-[var(--shadow-d2-soft)]',
+                'lg:absolute lg:w-56',
+                index === 0 && 'lg:left-0 lg:top-0',
+                index === 1 && 'lg:left-10 lg:top-20',
+                index === 2 && 'lg:left-0 lg:top-40',
+                index === 3 && 'lg:left-10 lg:top-60',
+              ]}
+            >
+              <p class="font-d2-display text-3xl font-semibold text-d2-clay">{fact.value}</p>
+              <p class="mt-1 text-sm font-semibold text-d2-muted">{fact.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

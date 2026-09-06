@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../../data/site';
+import Container from './Container.astro';
+import Button from './Button.astro';
+import heroImage from '../../assets/projects/casa-pasiva-piatra-neamt.svg';
+
+const trustChips = [
+  'Conform normativului I7',
+  'Home Assistant, control local',
+  'Casă pasivă construită de noi',
+];
+---
+
+<section id="hero" class="relative overflow-hidden bg-d2-cream py-20 md:py-28 lg:py-32">
+  <div class="d2-noise pointer-events-none absolute inset-0"></div>
+  <Container>
+    <div class="relative flex flex-col gap-12 lg:grid lg:grid-cols-12 lg:items-center lg:gap-12">
+      <div class="min-w-0 lg:col-span-7">
+        <p class="text-sm font-semibold tracking-wide text-d2-clay">
+          Instalații electrice · Smart home
+        </p>
+        <h1 class="mt-4 font-d2-display text-4xl font-semibold leading-tight text-d2-ink md:text-5xl lg:text-6xl">
+          Instalații electrice pentru case noi, integrate cu un smart home care chiar funcționează
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-relaxed text-d2-muted md:text-lg">
+          Proiectăm și executăm instalația electrică a casei tale conform normativului
+          I7, apoi o integrăm cu Home Assistant pentru un smart home local, fără
+          dependență de cloud. Lucrăm în {site.counties.join(', ')} și ne deplasăm
+          oriunde în țară.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <Button href="#contact" variant="primary">Cere ofertă</Button>
+          <Button href="#proiecte" variant="secondary">Vezi proiecte</Button>
+        </div>
+        <ul class="mt-10 flex flex-wrap gap-3">
+          {trustChips.map((chip) => (
+            <li class="rounded-full bg-d2-sand px-4 py-2 text-sm font-semibold text-d2-ink shadow-[var(--shadow-d2-soft)]">
+              {chip}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="relative lg:col-span-5 min-w-0">
+        <div class="d2-glow absolute -inset-8 -z-10 rounded-[var(--radius-d2-panel)]"></div>
+        <div class="overflow-hidden rounded-[var(--radius-d2-panel)] bg-d2-sand shadow-[var(--shadow-d2-lift)]">
+          <div class="relative">
+            <Image
+              src={heroImage}
+              alt="Schiță blueprint a instalației electrice a unei case pasive construite de echipă"
+              class="h-72 w-full object-cover md:h-96"
+              width={800}
+              height={600}
+            />
+            <div class="absolute inset-0 h-full w-full bg-d2-clay mix-blend-color"></div>
+            <div class="absolute inset-0 h-full w-full bg-d2-cream/10"></div>
+          </div>
+        </div>
+        <div class="absolute -bottom-6 left-4 max-w-[14rem] rounded-[var(--radius-d2-card)] bg-d2-forest px-5 py-4 text-d2-cream shadow-[var(--shadow-d2-lift)] sm:-left-6">
+          <p class="font-d2-display text-sm font-semibold leading-snug">
+            Casă pasivă construită de noi
+          </p>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

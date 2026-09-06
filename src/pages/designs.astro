@@ -1,0 +1,87 @@
+---
+const designs = [
+  { n: 1, name: 'Blueprint Tehnic', href: '/', note: 'Tehnic, albastru blueprint, colțuri drepte' },
+  { n: 2, name: 'Atelier Cald', href: '/design-2', note: 'Cald, terracotta și verde, colțuri rotunjite' },
+];
+---
+
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Designuri disponibile — Electricieni Moderni</title>
+    <meta name="description" content="Comparație între designurile de pagină principală disponibile pentru site-ul Electricieni Moderni." />
+    <style>
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        background: #f4f4f5;
+        color: #18181b;
+      }
+      main {
+        max-width: 48rem;
+        margin: 0 auto;
+        padding: 3rem 1.25rem;
+      }
+      h1 {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+      }
+      p.lead {
+        color: #52525b;
+        margin-top: 0;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 2rem 0 0;
+        display: grid;
+        gap: 1rem;
+      }
+      li {
+        border: 1px solid #d4d4d8;
+        border-radius: 0.5rem;
+        padding: 1.25rem 1.5rem;
+        background: #ffffff;
+      }
+      li a {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #18181b;
+        text-decoration: none;
+      }
+      li a:hover {
+        text-decoration: underline;
+      }
+      li p {
+        margin: 0.35rem 0 0;
+        color: #52525b;
+        font-size: 0.95rem;
+      }
+      .n {
+        color: #71717a;
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Designuri disponibile</h1>
+      <p class="lead">
+        Fiecare design prezintă exact același conținut, într-un stil vizual diferit.
+        Alege unul pentru a-l vedea în întregime.
+      </p>
+      <ul>
+        {designs.map((d) => (
+          <li>
+            <p class="n">Design {d.n}</p>
+            <a href={d.href}>{d.name}</a>
+            <p>{d.note}</p>
+          </li>
+        ))}
+      </ul>
+    </main>
+  </body>
+</html>

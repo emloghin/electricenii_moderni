@@ -1,0 +1,102 @@
+---
+import { site } from '../data/site';
+import Container from './Container.astro';
+import Button from './Button.astro';
+
+const links = [
+  { href: '#servicii', label: 'Servicii' },
+  { href: '#despre', label: 'Despre echipă' },
+  { href: '#proiecte', label: 'Proiecte' },
+  { href: '#testimoniale', label: 'Testimoniale' },
+  { href: '#zone', label: 'Zone deservite' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-hairline bg-surface/90 backdrop-blur">
+  <Container>
+    <div class="flex h-16 items-center justify-between md:h-20">
+      <a href="#" class="font-display text-lg font-semibold tracking-tight text-ink-900 md:text-xl">
+        {site.name}
+      </a>
+
+      <nav class="hidden items-center gap-8 lg:flex">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class="font-mono text-xs uppercase tracking-widest text-ink-600 transition-colors hover:text-blueprint-600"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="hidden lg:block">
+        <Button href="#contact" variant="primary">Cere ofertă</Button>
+      </div>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        class="flex h-10 w-10 items-center justify-center border border-hairline lg:hidden"
+      >
+        <span class="sr-only">Deschide meniul</span>
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hidden h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <nav id="mobile-nav" class="hidden flex-col gap-1 border-t border-hairline pb-6 pt-2 lg:hidden">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-nav-link block py-3 font-mono text-sm uppercase tracking-widest text-ink-600 hover:text-blueprint-600"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="#contact"
+        class="mobile-nav-link mt-2 inline-flex items-center justify-center bg-accent-500 px-6 py-3 font-mono text-xs uppercase tracking-widest text-blueprint-950"
+      >
+        Cere ofertă
+      </a>
+    </nav>
+  </Container>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('mobile-nav');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  const closeNav = () => {
+    nav?.classList.add('hidden');
+    toggle?.setAttribute('aria-expanded', 'false');
+    iconOpen?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+  };
+
+  toggle?.addEventListener('click', () => {
+    const isHidden = nav?.classList.contains('hidden');
+    if (isHidden) {
+      nav?.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
+    } else {
+      closeNav();
+    }
+  });
+
+  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+    link.addEventListener('click', closeNav);
+  });
+</script>

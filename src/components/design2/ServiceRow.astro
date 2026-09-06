@@ -1,0 +1,33 @@
+---
+import { render } from 'astro:content';
+import Pill from './Pill.astro';
+
+interface Props {
+  entry: any;
+  reversed: boolean;
+}
+
+const { entry, reversed } = Astro.props;
+const { title, category, summary } = entry.data;
+const { Content } = await render(entry);
+const pillTone = category === 'smart' ? 'forest' : 'clay';
+const pillLabel = category === 'smart' ? 'Smart home' : 'Instalații clasice';
+---
+
+<div class="flex flex-col gap-8 md:gap-12 lg:grid lg:grid-cols-2 lg:items-center">
+  <div class={`min-w-0 ${reversed ? 'lg:order-2' : ''}`}>
+    <div class="flex h-48 items-center justify-center rounded-[var(--radius-d2-panel)] bg-d2-sand shadow-[var(--shadow-d2-soft)] md:h-64">
+      <span class="font-d2-display text-6xl font-semibold text-d2-sand-deep md:text-7xl">
+        {title.charAt(0)}
+      </span>
+    </div>
+  </div>
+  <div class={`min-w-0 ${reversed ? 'lg:order-1' : ''}`}>
+    <Pill label={pillLabel} tone={pillTone} />
+    <h3 class="mt-4 font-d2-display text-2xl font-semibold text-d2-ink md:text-3xl">{title}</h3>
+    <p class="mt-3 text-base leading-relaxed text-d2-muted md:text-lg">{summary}</p>
+    <div class="prose-d2 mt-4 text-base leading-relaxed text-d2-muted">
+      <Content />
+    </div>
+  </div>
+</div>

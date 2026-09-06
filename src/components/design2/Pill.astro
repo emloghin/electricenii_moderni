@@ -1,0 +1,18 @@
+---
+interface Props {
+  label: string;
+  tone?: 'clay' | 'forest' | 'sand';
+}
+
+const { label, tone = 'clay' } = Astro.props;
+
+const tones = {
+  clay: 'bg-d2-clay/10 text-d2-clay-deep',
+  forest: 'bg-d2-forest/10 text-d2-forest-deep',
+  sand: 'bg-d2-cream/70 text-d2-ink',
+};
+---
+
+<span class={`inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold ${tones[tone]}`}>
+  {label}
+</span>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import About from '../components/About.astro';
+import Projects from '../components/Projects.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Electricieni Moderni — Instalații electrice și smart home cu Home Assistant"
+  description="Instalații electrice pentru case noi conforme I7 și integrare smart home cu Home Assistant, în Neamț, Suceava, Iași, Botoșani și toată țara."
+>
+  <Header />
+  <main>
+    <Hero />
+    <Services />
+    <About />
+    <Projects />
+    <Testimonials />
+    <ServiceAreas />
+    <Contact />
+  </main>
+  <Footer />
+</BaseLayout>
+

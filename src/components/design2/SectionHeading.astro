@@ -1,0 +1,33 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  tone?: 'light' | 'onForest';
+  align?: 'left' | 'center';
+}
+
+const { eyebrow, title, lead, tone = 'light', align = 'left' } = Astro.props;
+const isOnForest = tone === 'onForest';
+const isCentered = align === 'center';
+---
+
+<div class={`mb-10 md:mb-14 ${isCentered ? 'text-center' : ''}`}>
+  <p
+    class={`font-d2-body text-sm tracking-wide ${isOnForest ? 'text-d2-cream/80' : 'text-d2-clay'}`}
+  >
+    {eyebrow}
+  </p>
+  <h2
+    class={`mt-3 font-d2-display text-3xl font-semibold leading-tight md:text-4xl lg:text-5xl ${isOnForest ? 'text-d2-cream' : 'text-d2-ink'}`}
+  >
+    {title}
+  </h2>
+  {
+    lead && (
+      <p class={`mt-4 max-w-2xl text-base leading-relaxed md:text-lg ${isCentered ? 'mx-auto' : ''} ${isOnForest ? 'text-d2-cream/80' : 'text-d2-muted'}`}>
+        {lead}
+      </p>
+    )
+  }
+</div>

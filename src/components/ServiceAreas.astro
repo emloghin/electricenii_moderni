@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section id="zone" class="relative overflow-hidden bg-blueprint-950 bg-blueprint-grid py-16 md:py-24 lg:py-28">
+  <Container>
+    <SectionHeading
+      index="05"
+      eyebrow="Unde lucrăm"
+      title="Zone deservite"
+      tone="dark"
+    />
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {site.counties.map((county) => (
+        <div class="border border-white/15 bg-blueprint-950/60 p-6 text-center">
+          <p class="font-display text-xl font-semibold text-surface">{county}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-8 max-w-2xl text-base leading-relaxed text-blueprint-100 md:text-lg">
+      {site.coverageLine}
+    </p>
+  </Container>
+</section>

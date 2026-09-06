@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import TestimonialCard from './TestimonialCard.astro';
+
+const testimonials = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
+const stagger = ['', 'lg:mt-10', 'lg:mt-20'];
+const isSingle = testimonials.length === 1;
+---
+
+{
+  testimonials.length > 0 && (
+    <section id="testimoniale" class="bg-d2-cream py-20 md:py-28 lg:py-32">
+      <Container>
+        <SectionHeading
+          eyebrow={isSingle ? 'Testat chiar de noi, acasă' : 'Ce spun clienții'}
+          title={isSingle ? 'Dovada stă în propria noastră casă' : 'Recomandările vorbesc de la sine'}
+          align="center"
+        />
+        <div class={isSingle ? 'mx-auto max-w-2xl' : 'flex flex-col gap-8 md:grid md:grid-cols-2 lg:grid-cols-3'}>
+          {testimonials.map((entry, index) => (
+            <div class={isSingle ? 'min-w-0' : `min-w-0 ${stagger[index % stagger.length]}`}>
+              <TestimonialCard entry={entry} />
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}

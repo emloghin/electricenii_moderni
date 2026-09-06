@@ -1,0 +1,25 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary';
+  tone?: 'light' | 'onForest';
+  class?: string;
+}
+
+const { href, variant = 'primary', tone = 'light', class: className = '' } = Astro.props;
+const isOnForest = tone === 'onForest';
+
+const base =
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition-all duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-d2-clay';
+
+const variants = {
+  primary: 'bg-d2-clay text-d2-cream shadow-[var(--shadow-d2-soft)] hover:-translate-y-0.5 hover:bg-d2-clay-deep hover:shadow-[var(--shadow-d2-lift)]',
+  secondary: isOnForest
+    ? 'border border-d2-cream/30 text-d2-cream hover:-translate-y-0.5 hover:border-d2-cream'
+    : 'border border-d2-line text-d2-clay hover:-translate-y-0.5 hover:border-d2-clay',
+};
+---
+
+<a href={href} class={`${base} ${variants[variant]} ${className}`}>
+  <slot />
+</a>

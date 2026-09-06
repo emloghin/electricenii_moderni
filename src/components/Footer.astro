@@ -1,0 +1,33 @@
+---
+import { site } from '../data/site';
+import Container from './Container.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-blueprint-950 py-12">
+  <Container>
+    <div class="flex flex-col gap-8 border-t border-white/10 pt-10 md:flex-row md:items-start md:justify-between">
+      <div>
+        <p class="font-display text-lg font-semibold text-surface">{site.name}</p>
+        <p class="mt-2 max-w-sm text-sm leading-relaxed text-blueprint-100">
+          Instalații electrice conforme normativului I7 și integrare smart home cu
+          Home Assistant.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-2 text-sm text-blueprint-100">
+        <a href={site.phoneHref} class="hover:text-accent-500">{site.phone}</a>
+        <a href={site.emailHref} class="hover:text-accent-500">{site.email}</a>
+      </div>
+
+      <div class="font-mono text-xs uppercase tracking-widest text-blueprint-100">
+        {site.counties.join(' · ')}
+      </div>
+    </div>
+
+    <p class="mt-10 font-mono text-xs text-blueprint-100/70">
+      © {year} {site.name}. Toate drepturile rezervate.
+    </p>
+  </Container>
+</footer>

@@ -8,3 +8,11 @@
 .squad/.cache/
 # Squad: SubSquad activation file (local to this machine)
 .squad-workstream
+
+# Astro / Node
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example

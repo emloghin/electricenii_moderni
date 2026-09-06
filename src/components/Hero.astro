@@ -1,0 +1,38 @@
+---
+import Container from './Container.astro';
+import Button from './Button.astro';
+
+const trust = ['Conform I7', 'Home Assistant local', 'Casă pasivă realizată de noi'];
+---
+
+<section class="relative overflow-hidden bg-blueprint-950 bg-blueprint-grid">
+  <Container>
+    <div class="relative py-20 md:py-28 lg:py-36">
+      <p class="font-mono text-xs uppercase tracking-[0.3em] text-accent-500">
+        Instalații electrice · Smart home
+      </p>
+      <h1 class="mt-6 max-w-3xl font-display text-4xl font-semibold leading-tight tracking-tight text-surface md:text-5xl lg:text-6xl">
+        Instalații electrice pentru case noi și case inteligente cu Home Assistant.
+      </h1>
+      <p class="mt-6 max-w-2xl text-base leading-relaxed text-blueprint-100 md:text-lg">
+        Executăm instalații electrice conforme normativului <strong class="text-surface">I7</strong> și
+        le integrăm, la cerere, cu sisteme smart home locale. Lucrăm cu precădere în
+        Neamț, Suceava, Iași și Botoșani, dar ne deplasăm oriunde în țară.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <Button href="#contact" variant="primary">Cere ofertă</Button>
+        <Button href="#proiecte" variant="secondary" tone="dark">Vezi proiecte</Button>
+      </div>
+
+      <ul class="mt-14 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/10 pt-8">
+        {trust.map((item) => (
+          <li class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-blueprint-100">
+            <span class="h-1.5 w-1.5 bg-accent-500"></span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+</section>

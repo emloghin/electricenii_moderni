@@ -12,6 +12,13 @@
 
 | Name | Role | Charter | Status |
 |------|------|---------|--------|
+| SpecKit | Spec-Kit Expert | .squad/agents/speckit/charter.md | 🏗️ Active |
+| Builder | Frontend/Astro Dev | .squad/agents/builder/charter.md | ⚛️ Active |
+| Smoke | Tester | .squad/agents/smoke/charter.md | 🧪 Active |
+| Scribe | Scribe | .squad/agents/scribe/charter.md | 📋 Active |
+| Ralph | Work Monitor | .squad/agents/ralph/charter.md | 🔄 Active |
+| Rai | RAI Reviewer | .squad/agents/Rai/charter.md | 🛡️ RAI |
+| Fact Checker | Fact Checker | .squad/agents/fact-checker/charter.md | 🔍 Verifier |
 
 
 ## Coding Agent
@@ -49,5 +56,10 @@
 
 ## Project Context
 
-- **Project:** electricenii_moderni
+- **Project:** electricenii_moderni — presentation website for a Romanian electrician/smart-home installation team (classic electrical installs + Home Assistant smart integration), targeting customers nationwide with focus on Neamt, Suceava, Iasi, Botosani.
+- **Stack:** Astro + Tailwind CSS, static, Markdown-driven content, easy for a non-developer to maintain.
+- **Process:** spec-kit is mandatory for all work. SpecKit owns constitution → specify → plan → tasks → implement (clarify only when genuinely ambiguous, analyse always skipped). No planning before specs, no code before tasks.
+- **Deliverable:** 5 distinct homepage designs, shipped one fully at a time; user picks a favorite then adds custom content.
+- **Definition of done:** the website runs.
+- **Requested by:** ELoghin
 - **Created:** 2026-09-06

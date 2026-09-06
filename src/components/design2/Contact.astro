@@ -1,0 +1,35 @@
+---
+import { site } from '../../data/site';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import Button from './Button.astro';
+---
+
+<section id="contact" class="bg-d2-cream py-20 md:py-28 lg:py-32">
+  <Container>
+    <SectionHeading
+      eyebrow="Contact"
+      title="Hai să vorbim despre proiectul tău"
+      lead="Sună-ne sau scrie-ne — răspundem în cel mai scurt timp cu detalii despre disponibilitate și ofertă."
+    />
+    <div class="flex flex-col gap-6 md:grid md:grid-cols-2">
+      <div class="rounded-[var(--radius-d2-card)] bg-d2-sand p-8 shadow-[var(--shadow-d2-soft)]">
+        <p class="text-sm font-semibold text-d2-clay">Telefon</p>
+        <a href={site.phoneHref} class="mt-3 inline-flex min-h-11 items-center font-d2-display text-2xl font-semibold text-d2-ink hover:text-d2-clay-deep">
+          {site.phone}
+        </a>
+        <p class="mt-4 text-sm text-d2-muted">{site.workingHours}</p>
+      </div>
+      <div class="rounded-[var(--radius-d2-card)] bg-d2-sand p-8 shadow-[var(--shadow-d2-soft)]">
+        <p class="text-sm font-semibold text-d2-clay">Email</p>
+        <a href={site.emailHref} class="mt-3 inline-flex min-h-11 items-center break-all font-d2-display text-2xl font-semibold text-d2-ink hover:text-d2-clay-deep">
+          {site.email}
+        </a>
+        <p class="mt-4 text-sm text-d2-muted">{site.coverageLine}</p>
+      </div>
+    </div>
+    <div class="mt-10 flex justify-center">
+      <Button href={site.emailHref} variant="primary">Cere ofertă</Button>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,55 @@
+---
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const facts = [
+  { label: 'Casă pasivă', detail: 'Fondatorul și-a proiectat și cablat propria casă pasivă.' },
+  { label: 'Home Assistant', detail: 'Control local, fără dependență de servicii cloud.' },
+  { label: 'Normativ I7', detail: 'Fiecare instalație este verificată și documentată.' },
+  { label: 'Din 2018', detail: 'Experiență acumulată în instalații clasice și smart home.' },
+];
+---
+
+<section id="despre" class="bg-blueprint-100 py-16 md:py-24 lg:py-28">
+  <Container>
+    <SectionHeading
+      index="02"
+      eyebrow="Cine suntem"
+      title="Despre echipă"
+    />
+
+    <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="space-y-5 text-base leading-relaxed text-ink-600 md:text-lg">
+        <p>
+          Echipa noastră a pornit de la o poveste personală: fondatorul și-a
+          construit propria <strong class="text-ink-900">casă pasivă</strong> și a
+          proiectat, cablat și configurat singur întregul sistem smart home, de la
+          tabloul electric până la scenariile de automatizare din
+          <strong class="text-ink-900">Home Assistant</strong>.
+        </p>
+        <p>
+          Din acea experiență practică a rezultat modul în care lucrăm astăzi cu
+          clienții: instalații electrice executate <strong class="text-ink-900">conform
+          normativului I7</strong>, documentate clar, la care adăugăm — acolo unde
+          se dorește — un sistem smart home robust, care funcționează local și nu
+          depinde de un serviciu cloud pentru funcțiile de bază.
+        </p>
+        <p>
+          Nu vindem gadgeturi izolate, ci o instalație electrică solidă peste care
+          construim automatizarea potrivită pentru fiecare casă.
+        </p>
+      </div>
+
+      <div class="relative border border-hairline bg-blueprint-950 bg-blueprint-grid p-8">
+        <ul class="grid gap-6 sm:grid-cols-2">
+          {facts.map((fact) => (
+            <li class="border-l-2 border-accent-500 pl-4">
+              <p class="font-mono text-xs uppercase tracking-widest text-accent-500">{fact.label}</p>
+              <p class="mt-2 text-sm leading-relaxed text-blueprint-100">{fact.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import TestimonialCard from './TestimonialCard.astro';
+
+const entries = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
+---
+
+{
+  entries.length > 0 && (
+    <section id="testimoniale" class="bg-blueprint-100 py-16 md:py-24 lg:py-28">
+      <Container>
+        <SectionHeading
+          index="04"
+          eyebrow="Ce spun clienții"
+          title="Testimoniale"
+        />
+        <div class="grid gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+          {entries.map((entry) => (
+            <TestimonialCard
+              quote={entry.body?.trim() ?? ''}
+              author={entry.data.author}
+              location={entry.data.location}
+              role={entry.data.role}
+              rating={entry.data.rating}
+            />
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}

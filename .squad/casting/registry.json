@@ -1,3 +1,7 @@
 {
-  "agents": {}
+  "agents": {
+    "SpecKit": { "persistent_name": "SpecKit", "role": "Spec-Kit Expert", "universe": "descriptive", "created_at": "2026-09-06", "legacy_named": false, "status": "active" },
+    "Builder": { "persistent_name": "Builder", "role": "Frontend/Astro Dev", "universe": "descriptive", "created_at": "2026-09-06", "legacy_named": false, "status": "active" },
+    "Smoke": { "persistent_name": "Smoke", "role": "Tester", "universe": "descriptive", "created_at": "2026-09-06", "legacy_named": false, "status": "active" }
+  }
 }

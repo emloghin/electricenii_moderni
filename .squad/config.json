@@ -1,3 +1,13 @@
 {
-  "version": 1
+  "version": 1,
+  "coordinatorModel": "gemini-3.8-flash",
+  "agentModelOverrides": {
+    "SpecKit": "claude-opus-5",
+    "Builder": "claude-sonnet-5",
+    "Smoke": "gemini-3.8-flash",
+    "Scribe": "gemini-3.8-flash",
+    "Ralph": "gemini-3.8-flash",
+    "Rai": "gemini-3.8-flash",
+    "Fact Checker": "gemini-3.8-flash"
+  }
 }

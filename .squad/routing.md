@@ -6,6 +6,10 @@ How to decide who handles what.
 
 | Work Type | Route To | Examples |
 |-----------|----------|----------|
+| Spec-kit workflow (constitution/specify/clarify/plan/tasks/implement) | SpecKit | New design spec, feature spec, task breakdown |
+| Astro/Tailwind implementation, content structure, MD content wiring | Builder | Building a homepage design, portfolio gallery, content collections |
+| Smoke test after a build | Smoke | "does design 2 run", quick pass/fail check |
+| Anything not yet spec'd | SpecKit first | No planning before specs, no code before tasks |
 
 Preset installation adds concrete routes for the configured team. Add or edit rows
 here only when their agent names also exist in the casting registry.

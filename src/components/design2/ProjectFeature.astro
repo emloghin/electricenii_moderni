@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  entry: any;
+  flagship?: boolean;
+}
+
+const { entry, flagship = false } = Astro.props;
+const { title, location, year, summary, image, imageAlt, tags } = entry.data;
+---
+
+<article class="overflow-hidden rounded-[var(--radius-d2-panel)] bg-d2-cream shadow-[var(--shadow-d2-lift)]">
+  {
+    image ? (
+      <div class="relative">
+        <Image
+          src={image}
+          alt={imageAlt ?? title}
+          class="h-56 w-full object-cover md:h-72"
+          width={1000}
+          height={640}
+        />
+        <div class="pointer-events-none absolute inset-0 h-full w-full bg-d2-clay mix-blend-color" />
+        <div class="pointer-events-none absolute inset-0 h-full w-full bg-d2-cream/10" />
+        {flagship && (
+          <p class="absolute left-4 top-4 rounded-full bg-d2-forest px-4 py-1.5 text-sm font-semibold text-d2-cream shadow-[var(--shadow-d2-soft)]">
+            Studiu de caz
+          </p>
+        )}
+      </div>
+    ) : (
+      <div class="flex h-56 w-full items-center justify-center bg-gradient-to-br from-d2-sand to-d2-sand-deep md:h-72">
+        <p class="px-6 text-center font-d2-display text-2xl font-semibold text-d2-ink">{title}</p>
+      </div>
+    )
+  }
+  <div class="p-6 md:p-8">
+    <p class="text-sm font-semibold text-d2-clay">{year} · {location}</p>
+    <h3 class="mt-2 font-d2-display text-2xl font-semibold text-d2-ink md:text-3xl">{title}</h3>
+    <p class="mt-3 text-base leading-relaxed text-d2-muted">{summary}</p>
+    {
+      tags.length > 0 && (
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {tags.map((tag: string) => (
+            <li class="rounded-full bg-d2-sand px-3 py-1 text-sm font-semibold text-d2-ink">{tag}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>

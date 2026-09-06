@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Container from './Container.astro';
+import SectionHeading from './SectionHeading.astro';
+import ServiceCard from './ServiceCard.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+
+{
+  services.length > 0 && (
+    <section id="servicii" class="bg-surface py-16 md:py-24 lg:py-28">
+      <Container>
+        <SectionHeading
+          index="01"
+          eyebrow="Ce facem"
+          title="Servicii"
+          subtitle="De la instalația electrică de bază, conformă I7, până la integrarea completă cu Home Assistant."
+        />
+        <div class="grid gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
+          {services.map((service, i) => (
+            <ServiceCard
+              title={service.data.title}
+              category={service.data.category}
+              summary={service.data.summary}
+              index={i + 1}
+            />
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}

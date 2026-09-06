@@ -1,0 +1,31 @@
+---
+import { render } from 'astro:content';
+
+interface Props {
+  entry: any;
+}
+
+const { entry } = Astro.props;
+const { author, location, role, rating } = entry.data;
+const { Content } = await render(entry);
+---
+
+<article class="rounded-[var(--radius-d2-card)] bg-d2-cream p-6 shadow-[var(--shadow-d2-soft)] md:p-8">
+  <p class="font-d2-display text-5xl leading-none text-d2-sand-deep">&ldquo;</p>
+  <div class="mt-2 text-base leading-relaxed text-d2-ink md:text-lg">
+    <Content />
+  </div>
+  {
+    rating && (
+      <div class="mt-4 flex gap-1 text-d2-clay" aria-hidden="true">
+        {Array.from({ length: rating }).map(() => (
+          <span>★</span>
+        ))}
+      </div>
+    )
+  }
+  <p class="mt-4 text-sm font-semibold text-d2-ink">
+    {author}
+    <span class="font-normal text-d2-muted"> · {location}{role ? `, ${role}` : ''}</span>
+  </p>
+</article>

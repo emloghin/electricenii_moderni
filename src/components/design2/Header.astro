@@ -1,0 +1,114 @@
+---
+import { site } from '../../data/site';
+import Container from './Container.astro';
+import Button from './Button.astro';
+
+const links = [
+  { href: '#servicii', label: 'Servicii' },
+  { href: '#despre', label: 'Despre echipă' },
+  { href: '#proiecte', label: 'Proiecte' },
+  { href: '#testimoniale', label: 'Testimoniale' },
+  { href: '#zone', label: 'Zone deservite' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-d2-cream/90 shadow-[var(--shadow-d2-soft)] backdrop-blur">
+  <Container>
+    <div class="flex h-16 items-center justify-between md:h-20">
+      <a href="#" class="font-d2-display text-lg font-semibold tracking-tight text-d2-ink md:text-xl">
+        {site.name}
+      </a>
+
+      <nav class="hidden items-center gap-8 lg:flex">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm font-semibold text-d2-muted transition-colors hover:text-d2-clay"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="hidden lg:block">
+        <Button href="#contact" variant="primary">Cere ofertă</Button>
+      </div>
+
+      <button
+        type="button"
+        id="d2-menu-toggle"
+        aria-expanded="false"
+        aria-controls="d2-mobile-nav"
+        class="flex h-11 w-11 items-center justify-center rounded-full bg-d2-sand shadow-[var(--shadow-d2-soft)] lg:hidden"
+      >
+        <span class="sr-only">Deschide meniul</span>
+        <svg id="d2-icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="d2-icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hidden h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <nav id="d2-mobile-nav" class="hidden flex-col gap-1 rounded-[var(--radius-d2-card)] bg-d2-sand p-4 pb-6 shadow-[var(--shadow-d2-soft)] lg:hidden">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="d2-mobile-nav-link block rounded-full px-4 py-3 text-sm font-semibold text-d2-ink hover:bg-d2-sand-deep"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="#contact"
+        class="d2-mobile-nav-link mt-2 inline-flex items-center justify-center rounded-full bg-d2-clay px-6 py-3 text-sm font-semibold text-d2-cream"
+      >
+        Cere ofertă
+      </a>
+    </nav>
+  </Container>
+</header>
+
+<noscript>
+  <style>
+    /* Keep the mobile nav reachable when JavaScript is disabled (no dead toggle). */
+    #d2-mobile-nav {
+      display: flex;
+    }
+    #d2-menu-toggle {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<script>
+  const toggle = document.getElementById('d2-menu-toggle');
+  const nav = document.getElementById('d2-mobile-nav');
+  const iconOpen = document.getElementById('d2-icon-open');
+  const iconClose = document.getElementById('d2-icon-close');
+
+  const closeNav = () => {
+    nav?.classList.add('hidden');
+    toggle?.setAttribute('aria-expanded', 'false');
+    iconOpen?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+  };
+
+  toggle?.addEventListener('click', () => {
+    const isHidden = nav?.classList.contains('hidden');
+    if (isHidden) {
+      nav?.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
+    } else {
+      closeNav();
+    }
+  });
+
+  document.querySelectorAll('.d2-mobile-nav-link').forEach((link) => {
+    link.addEventListener('click', closeNav);
+  });
+</script>
