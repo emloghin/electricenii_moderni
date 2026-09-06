@@ -283,3 +283,62 @@ Committed everything (`d138c2f` + this follow-up) to `dev` and pushed to
 
 **Result**: Definition of Done met — site builds and runs, both designs and
 the neutral `/designs` index all serve correctly, Design 1 verified unchanged.
+
+
+## Documentation task: MAINTENANCE.md + small video/audio extension
+
+Added MAINTENANCE.md at the repo root — a beginner-friendly, Romanian-
+language guide for the non-developer site owner, covering: running the site
+locally (
+pm install + 
+pm run dev, confirmed default port **4321**),
+publishing to production (no hosting provider was configured yet — verified
+via stro.config.mjs and .github/workflows/ which only contain Squad's
+internal automation, not deploy workflows; documented Netlify as the
+recommended path with exact build command 
+pm run build / publish dir
+dist, plus custom-domain steps, clearly marked as documentation-only since
+nothing was actually provisioned), and a short "quick summary" table.
+Deliberately did **not** duplicate CONTENT.md (which already covers
+services/projects/testimonials frontmatter in detail) — cross-linked to it
+instead for that part.
+
+**Video/audio support (small, non-visual code extension, per client's
+explicit authorization to touch Design 1 for this):** verified no component
+had any video/audio embed support. Added:
+- ideo (string, optional) and ideoTitle (string, optional) fields to
+  the projects collection schema in src/content.config.ts.
+- New neutral src/components/shared/VideoEmbed.astro — accepts either a
+  YouTube/Vimeo embed URL (mbedUrl, renders an <iframe>) or a local
+  public/-relative path (src, renders <video> or <audio> based on
+  file extension). Lives outside both src/components/ (Design 1) and
+  src/components/design2/ so neither design "imports from the other".
+- Wired it into both ProjectCard.astro (Design 1) and
+  design2/ProjectFeature.astro (Design 2): renders only when a project's
+  ideo field is set; otherwise output is byte-for-byte identical to
+  before (verified via clean build with the field absent).
+
+**Verification performed (not just documented as untested):**
+- 
+pm install + 
+pm run dev → confirmed serves on http://localhost:4321.
+- Added a temporary test project with ideo: "https://www.youtube.com/embed/...",
+  ran 
+pm run build, grepped the output HTML and confirmed the <iframe>
+  rendered on **both** / and /design-2 (initially only /design-2 showed
+  it — found and fixed a missed prop pass-through in Design 1's
+  Projects.astro, which wasn't forwarding ideo/ideoTitle to
+  ProjectCard).
+- Added a second temporary test project with ideo: "/media/test.mp3",
+  rebuilt, confirmed an <audio controls> tag rendered (not <video>) —
+  extension-based detection works.
+- Removed both temporary test files, rebuilt clean, confirmed only the one
+  real project renders again with no leftover test artifacts.
+- Final full-page screenshots of / and /design-2 (hero sections)
+  confirm both designs are visually unchanged from before this task.
+- Cleaned up all scratch debug scripts/screenshots from repo root.
+
+Left .specify/feature.json, .specify/memory/constitution.md,
+.squad/agents/speckit/history.md, and specs/003-design-3-homepage/
+untouched — these are unrelated in-progress Design 3 spec work from another
+agent, not part of this documentation task.

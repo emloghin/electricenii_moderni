@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import VideoEmbed from '../shared/VideoEmbed.astro';
 
 interface Props {
   entry: any;
@@ -7,7 +8,8 @@ interface Props {
 }
 
 const { entry, flagship = false } = Astro.props;
-const { title, location, year, summary, image, imageAlt, tags } = entry.data;
+const { title, location, year, summary, image, imageAlt, tags, video, videoTitle } = entry.data;
+const videoIsEmbed = video?.startsWith('http');
 ---
 
 <article class="overflow-hidden rounded-[var(--radius-d2-panel)] bg-d2-cream shadow-[var(--shadow-d2-lift)]">
@@ -39,6 +41,17 @@ const { title, location, year, summary, image, imageAlt, tags } = entry.data;
     <p class="text-sm font-semibold text-d2-clay">{year} · {location}</p>
     <h3 class="mt-2 font-d2-display text-2xl font-semibold text-d2-ink md:text-3xl">{title}</h3>
     <p class="mt-3 text-base leading-relaxed text-d2-muted">{summary}</p>
+    {
+      video && (
+        <div class="mt-5">
+          <VideoEmbed
+            embedUrl={videoIsEmbed ? video : undefined}
+            src={videoIsEmbed ? undefined : video}
+            title={videoTitle ?? title}
+          />
+        </div>
+      )
+    }
     {
       tags.length > 0 && (
         <ul class="mt-5 flex flex-wrap gap-2">

@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import VideoEmbed from './shared/VideoEmbed.astro';
 
 interface Props {
   title: string;
@@ -10,9 +11,12 @@ interface Props {
   tags: string[];
   image?: ImageMetadata;
   imageAlt?: string;
+  video?: string;
+  videoTitle?: string;
 }
 
-const { title, location, year, summary, tags, image, imageAlt } = Astro.props;
+const { title, location, year, summary, tags, image, imageAlt, video, videoTitle } = Astro.props;
+const videoIsEmbed = video?.startsWith('http');
 ---
 
 <article class="flex h-full flex-col border border-hairline bg-surface transition-all duration-150 hover:-translate-y-0.5 hover:border-blueprint-600">
@@ -30,6 +34,17 @@ const { title, location, year, summary, tags, image, imageAlt } = Astro.props;
     <p class="font-mono text-xs uppercase tracking-widest text-blueprint-600">{year} · {location}</p>
     <h3 class="mt-3 font-display text-xl font-semibold text-ink-900">{title}</h3>
     <p class="mt-3 flex-1 text-sm leading-relaxed text-ink-600 md:text-base">{summary}</p>
+    {
+      video && (
+        <div class="mt-5">
+          <VideoEmbed
+            embedUrl={videoIsEmbed ? video : undefined}
+            src={videoIsEmbed ? undefined : video}
+            title={videoTitle ?? title}
+          />
+        </div>
+      )
+    }
     {
       tags.length > 0 && (
         <ul class="mt-5 flex flex-wrap gap-2">

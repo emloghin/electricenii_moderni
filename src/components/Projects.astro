@@ -30,6 +30,8 @@ const projects = (await getCollection('projects')).sort((a, b) => {
               tags={project.data.tags}
               image={project.data.image}
               imageAlt={project.data.imageAlt}
+              video={project.data.video}
+              videoTitle={project.data.videoTitle}
             />
           ))}
         </div>

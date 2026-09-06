@@ -1,0 +1,51 @@
+---
+// Componentă neutră, folosită atât de Design 1 cât și de Design 2.
+// Nu importă nimic din componentele vizuale ale niciunui design.
+//
+// Acceptă DOUĂ moduri, exclusive:
+// 1. `embedUrl` — un URL de tip "embed" YouTube/Vimeo -> afișează un <iframe>.
+// 2. `src`      — un fișier local din `public/` (.mp4/.webm pentru video,
+//                 .mp3/.wav/.ogg pentru audio) -> afișează <video>/<audio>.
+interface Props {
+  embedUrl?: string;
+  src?: string;
+  title?: string;
+  class?: string;
+}
+
+const { embedUrl, src, title = 'Video', class: className = '' } = Astro.props;
+const isAudio = src ? /\.(mp3|wav|ogg)$/i.test(src) : false;
+---
+
+{
+  embedUrl && (
+    <div class={`relative aspect-video w-full overflow-hidden rounded-lg bg-black ${className}`}>
+      <iframe
+        src={embedUrl}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        class="absolute inset-0 h-full w-full"
+      />
+    </div>
+  )
+}
+{
+  src && !isAudio && (
+    <video controls preload="metadata" class={`w-full rounded-lg ${className}`}>
+      <source src={src} />
+      Browserul tău nu suportă redarea video. Descarcă fișierul de{' '}
+      <a href={src}>aici</a>.
+    </video>
+  )
+}
+{
+  src && isAudio && (
+    <audio controls preload="metadata" class={`w-full ${className}`}>
+      <source src={src} />
+      Browserul tău nu suportă redarea audio. Descarcă fișierul de{' '}
+      <a href={src}>aici</a>.
+    </audio>
+  )
+}
