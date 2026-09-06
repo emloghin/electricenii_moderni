@@ -508,3 +508,99 @@ Left .specify/feature.json, .specify/memory/constitution.md,
 .squad/agents/speckit/history.md, and specs/003-design-3-homepage/
 untouched — these are unrelated in-progress Design 3 spec work from another
 agent, not part of this documentation task.
+
+## 2026-09-07 — Full-site QA/maintenance pass (all 4 designs)
+
+Systematic review of `/`, `/design-2`, `/design-3`, `/design-4`, `/designs`
+against the review checklist (build, responsive 375/768/1440, content
+honesty, nav/links, cross-design fact consistency, a11y basics, build
+warnings, MAINTENANCE.md/CONTENT.md accuracy). Used a scratch Playwright
+script (installed to a temp folder outside the repo, removed afterwards) to
+check `npm run preview`/`npm run dev` output at all three breakpoints for
+overflow, console errors, and mobile-menu behavior — zero overflow, zero
+console errors, all menus functional across all 4 designs both before and
+after fixes.
+
+**Bugs found and fixed (7 files touched, all surgical):**
+1. **`src/components/design2/ServiceAreas.astro`** — section was missing
+   `id="zone"` entirely, so the "Zone deservite" header nav link on
+   `/design-2` scrolled nowhere (broken anchor). Added the id (matches the
+   pattern already used by every other section/design).
+2. **`src/components/design2/ProjectFeature.astro`** — the "Studiu de caz"
+   flagship badge was absolutely positioned `top-4 left-4`, directly on top
+   of the "Casă pasivă / Piatra Neamț" title baked into the project SVG
+   image, visually obscuring the first letters. Moved the badge to
+   `top-4 right-4`, a part of the image with no baked-in text.
+3. **`src/components/design4/ProjectCaseStudy.astro`** — its internal
+   `md:grid-cols-2` (image/text split) used the *same* Tailwind breakpoint
+   (768px) as the parent `Section.astro`'s 12-col label/content grid, so at
+   exactly 768px both grids activated at once and the project image was
+   squeezed into a ~200px-wide sliver (thumbnail-sized) instead of getting
+   proper space. Changed the internal split to `lg:grid-cols-2` so it stays
+   stacked (full-width image) through the 768px tablet breakpoint and only
+   splits into two columns at 1024px+, where there's room.
+4. **`src/components/design4/Header.astro`** — desktop and mobile nav were
+   missing a "Testimonial" link entirely (had Servicii/Despre/Proiect/
+   Zone/Contact only), even though the page has a `#testimoniale` section
+   like every other design. Added it back (verified it still fits with zero
+   overflow at 768px and 1440px).
+5. **`src/components/About.astro`** (Design 1) — one of the four "fact"
+   tiles read `Din 2018 / Experiență acumulată în instalații clasice și
+   smart home`, i.e. an invented founding year / years-of-experience claim.
+   Constitution Principle V explicitly forbids inventing "years of
+   experience" content. Replaced with a true, already-corroborated fact
+   ("Proces-verbal — Predăm schema electrică și procesul-verbal de recepție
+   la final", matching language already used in the Services content and in
+   Design 2/3/4's own About copy).
+6. **`src/components/design2/About.astro`** — same issue: one fact tile read
+   `Garanție și documentație / 2 ani`, a specific warranty-length claim not
+   backed by `site.ts` or any other design (a fabricated-sounding business
+   claim per Principle V). Replaced with `Proces-verbal la recepție /
+   Documentat`, consistent with the same real, already-documented process
+   mentioned in this file's own body copy.
+7. **`MAINTENANCE.md`** — the video/audio section still said the
+   `VideoEmbed` component was shared between "ambele design-uri" (`/` and
+   `/design-2` only) with a forward-looking note about "if the team adds a
+   third design, `/design-3`" — stale now that Design 3 and Design 4 both
+   already use `VideoEmbed` too (`ProjectFlagship.astro`,
+   `ProjectCaseStudy.astro`). Updated both mentions to reflect all 4
+   shipped designs and removed the now-resolved "future work" note.
+
+**Verified but NOT changed (checked, found sound):**
+- `npm run build` — exit 0, 5 pages emitted, no warnings, both before and
+  after fixes.
+- All 6 header nav anchors (`#servicii #despre #proiecte #testimoniale
+  #zone #contact`) now have a matching section `id` in all 4 designs
+  (grep-verified after fix #1 and #4).
+- Content honesty: exactly one project (`casa-pasiva-piatra-neamt.md`) and
+  one testimonial (`fondator-casa-pasiva.md`) exist in the content
+  collections; every design renders the single entry as an intentional
+  spotlight/flagship, never a sparse grid. No other fabricated stats,
+  certifications, client counts, or team-size claims found anywhere else in
+  `src/components/**`.
+- Phone/email: no hardcoded values anywhere — every design reads
+  `site.phone`/`site.phoneHref`/`site.email`/`site.emailHref` from the
+  single `src/data/site.ts` source of truth; counties list likewise shared.
+- Images: every `<Image>`/`<img>` usage across all 4 designs has real
+  `alt` text (`imageAlt ?? title` pattern or a hand-written description).
+- `href="#"` occurrences are only the logo/home links in each design's
+  header (intentional "scroll to top" on a single-page site), not dead
+  placeholder links.
+- Buttons/links: `Button.astro` (and design 2/3/4 equivalents) render
+  semantic `<a>` tags with `focus-visible` outline styles; mobile-menu
+  toggles all have `aria-expanded`/`aria-controls` and `sr-only` labels.
+- No contact `<form>` exists on any design (contact is phone/email links
+  only), so no missing form-label issue applies.
+- `CONTENT.md` — spot-checked against actual schemas in
+  `src/content.config.ts`; field names/examples still match reality,
+  nothing stale found.
+
+**Left as-is (design choices, not defects):** Design 4's header switches
+to its desktop nav at the `md` (768px) breakpoint while Designs 1–3 use
+`lg` (1024px) — confirmed via screenshot that Design 4's shorter 6-item nav
+fits comfortably at 768px with no overflow/wrapping, so this is an
+intentional, working layout difference, not a bug to unify.
+
+Cleaned up: temporary Playwright scratch scripts/screenshots (installed
+outside the repo, in `%TEMP%`) and a repo-root `session-qa-check.mjs` probe
+script — none left behind.

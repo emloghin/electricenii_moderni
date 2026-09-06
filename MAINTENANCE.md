@@ -107,11 +107,11 @@ Pe scurt (detalii complete și exemple de câmpuri în
 
 Site-ul **nu avea** inițial niciun suport pentru video/audio — am verificat
 componentele existente și nu exista nimic de acest fel. Am adăugat o
-extensie mică, reutilizabilă pe ambele design-uri (`/` și `/design-2`),
-special pentru acest scop: componenta `VideoEmbed`
-(`src/components/shared/VideoEmbed.astro`). Nu afectează aspectul vizual al
-niciunui design existent — apare doar dacă completezi câmpul `video` la un
-proiect.
+extensie mică, reutilizabilă pe toate cele 4 design-uri (`/`, `/design-2`,
+`/design-3`, `/design-4`), special pentru acest scop: componenta
+`VideoEmbed` (`src/components/shared/VideoEmbed.astro`). Nu afectează
+aspectul vizual al niciunui design existent — apare doar dacă completezi
+câmpul `video` la un proiect.
 
 **Nu necesită nicio cunoștință de programare** — se completează un singur
 câmp în fișierul `.md` al proiectului, la fel ca celelalte câmpuri descrise
@@ -140,7 +140,7 @@ câmp în fișierul `.md` al proiectului, la fel ca celelalte câmpuri descrise
    ```
 
 3. Salvezi fișierul — videoul apare automat sub descrierea proiectului, pe
-   ambele design-uri.
+   toate cele 4 design-uri.
 
 ### Opțiunea B — un fișier video sau audio propriu (hostat pe acest site)
 
@@ -170,13 +170,9 @@ automat titlul proiectului.
 
 Testat și confirmat funcțional în acest proiect (verificat cu `npm run
 build`, atât pentru un link YouTube-embed cât și pentru un fișier audio
-local): videoul/audio-ul apare corect atât pe `/`, cât și pe `/design-2`,
-iar dacă nu completezi deloc câmpul `video`, nimic nu se schimbă — secțiunea
-de proiect arată exact ca înainte.
-
-> Notă tehnică pentru viitor (dacă echipa adaugă un al treilea design,
-> `/design-3`): componenta `VideoEmbed` e neutră și poate fi refolosită la
-> fel de simplu, importând-o din `../shared/VideoEmbed.astro`.
+local): videoul/audio-ul apare corect pe toate cele 4 design-uri (`/`,
+`/design-2`, `/design-3`, `/design-4`), iar dacă nu completezi deloc câmpul
+`video`, nimic nu se schimbă — secțiunea de proiect arată exact ca înainte.
 
 ## 5. Rezumat rapid
 
