@@ -1,0 +1,66 @@
+---
+import { site } from '../../data/site';
+import Container from './Container.astro';
+import Button from './Button.astro';
+
+const navLinks = [
+  { href: '#servicii', label: 'Servicii' },
+  { href: '#despre', label: 'Despre' },
+  { href: '#proiecte', label: 'Proiect' },
+  { href: '#zone', label: 'Zone' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="d4-rule sticky top-0 z-40 border-b-0 bg-d4-snow/90 backdrop-blur">
+  <Container class="flex items-center justify-between py-5">
+    <a href="#" class="font-d4-display text-lg font-light tracking-tight text-d4-ink">
+      {site.name}
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm text-d4-slate transition-colors hover:text-d4-sage-deep"
+        >
+          {link.label}
+        </a>
+      ))}
+      <Button href={site.phoneHref} variant="ghost">Sună acum</Button>
+    </nav>
+
+    <button
+      id="d4-nav-toggle"
+      type="button"
+      class="flex h-10 w-10 items-center justify-center rounded-[--radius-d4-btn] border border-d4-mist text-d4-ink md:hidden"
+      aria-expanded="false"
+      aria-controls="d4-nav-panel"
+      aria-label="Deschide meniul"
+    >
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="1" y1="4.5" x2="17" y2="4.5" />
+        <line x1="1" y1="9" x2="17" y2="9" />
+        <line x1="1" y1="13.5" x2="17" y2="13.5" />
+      </svg>
+    </button>
+  </Container>
+
+  <div id="d4-nav-panel" class="d4-rule hidden md:hidden">
+    <Container class="flex flex-col gap-4 py-6">
+      {navLinks.map((link) => (
+        <a href={link.href} class="text-base text-d4-ink">{link.label}</a>
+      ))}
+      <Button href={site.phoneHref} variant="solid" class="mt-2 w-fit">Sună acum</Button>
+    </Container>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('d4-nav-toggle');
+  const panel = document.getElementById('d4-nav-panel');
+  toggle?.addEventListener('click', () => {
+    const isHidden = panel?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!isHidden));
+  });
+</script>

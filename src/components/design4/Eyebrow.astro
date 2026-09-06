@@ -1,0 +1,12 @@
+---
+// Etichetă mică, sage, cu spațiere largă. Niciodată numerotată.
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<p class:list={['text-xs uppercase tracking-[0.18em] text-d4-sage', className]}>
+  <slot />
+</p>

@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+
+interface Props {
+  service: CollectionEntry<'services'>;
+}
+
+const { service } = Astro.props;
+const { title, summary, category, icon } = service.data;
+const iconName = icon ?? (category === 'smart' ? 'smart-home' : 'panel');
+const categoryLabel = category === 'smart' ? 'Smart home' : 'Instalații clasice';
+---
+
+<div class="d4-rule grid grid-cols-[auto_1fr] gap-x-5 py-8 first:pt-0 first:border-t-0 md:grid-cols-[auto_1fr_auto] md:items-start md:gap-x-8">
+  <Icon name={iconName} class="mt-1 h-6 w-6 text-d4-sage" />
+  <div>
+    <h3 class="text-lg font-medium md:text-xl">{title}</h3>
+    <p class="mt-2 max-w-2xl text-d4-slate">{summary}</p>
+  </div>
+  <span class="col-span-2 mt-3 text-xs uppercase tracking-[0.14em] text-d4-sage md:col-span-1 md:mt-1 md:text-right md:text-xs">
+    {categoryLabel}
+  </span>
+</div>

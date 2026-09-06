@@ -1,0 +1,32 @@
+---
+import { site } from '../../data/site';
+import Section from './Section.astro';
+import SectionLabel from './SectionLabel.astro';
+import Button from './Button.astro';
+
+const items = [
+  { label: 'Telefon', value: site.phone, href: site.phoneHref },
+  { label: 'E-mail', value: site.email, href: site.emailHref },
+  { label: 'Program', value: site.workingHours, href: undefined },
+];
+---
+
+<Section id="contact" band="paper">
+  <SectionLabel slot="label" eyebrow="Contact" title="Hai să vorbim" />
+  <div>
+    <dl class="space-y-6">
+      {items.map((item) => (
+        <div class="d4-rule pt-6 first:border-t-0 first:pt-0 sm:flex sm:items-baseline sm:gap-4">
+          <dt class="text-xs uppercase tracking-[0.14em] text-d4-sage sm:w-28 sm:flex-none">
+            {item.label}
+          </dt>
+          <dd class="mt-1 text-lg text-d4-ink sm:mt-0">
+            {item.href ? <a href={item.href} class="hover:text-d4-sage-deep">{item.value}</a> : item.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
+
+    <Button href={site.emailHref} variant="solid" class="mt-10">Cere ofertă</Button>
+  </div>
+</Section>

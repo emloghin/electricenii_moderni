@@ -1,0 +1,23 @@
+---
+import { site } from '../../data/site';
+import Container from './Container.astro';
+import Rule from './Rule.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-d4-snow py-14">
+  <Container>
+    <Rule class="mb-10" />
+    <div class="flex flex-col gap-4 text-sm text-d4-slate md:flex-row md:items-center md:justify-between">
+      <p class="font-d4-display text-base font-light text-d4-ink">{site.name}</p>
+      <p>{site.counties.join(' · ')}</p>
+      <p>
+        <a href={site.phoneHref} class="hover:text-d4-sage-deep">{site.phone}</a>
+        {' · '}
+        <a href={site.emailHref} class="hover:text-d4-sage-deep">{site.email}</a>
+      </p>
+      <p>© {year}</p>
+    </div>
+  </Container>
+</footer>

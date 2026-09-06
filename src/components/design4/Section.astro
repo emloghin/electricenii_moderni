@@ -1,0 +1,32 @@
+---
+// Bandă structurală de secțiune (plan D-009): grilă editorială pe 12 coloane,
+// coloana 1-3 = eticheta (slot "label"), coloana 5-12 = conținutul (slot implicit).
+import Container from './Container.astro';
+import Rule from './Rule.astro';
+
+interface Props {
+  id?: string;
+  band?: 'snow' | 'paper';
+  rule?: boolean;
+  class?: string;
+}
+
+const { id, band = 'snow', rule = false, class: className = '' } = Astro.props;
+const bandClass = band === 'paper' ? 'bg-d4-paper' : 'bg-d4-snow';
+---
+
+<section id={id} class:list={[bandClass, 'py-28 md:py-40', className]}>
+  {rule && (
+    <Container>
+      <Rule class="mb-28 md:mb-40" />
+    </Container>
+  )}
+  <Container>
+    <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-12">
+      <slot name="label" />
+      <div class="md:col-span-8 md:col-start-5">
+        <slot />
+      </div>
+    </div>
+  </Container>
+</section>

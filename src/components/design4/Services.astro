@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import Section from './Section.astro';
+import SectionLabel from './SectionLabel.astro';
+import ServiceRow from './ServiceRow.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Section id="servicii" band="paper">
+  <SectionLabel slot="label" eyebrow="Servicii" title="Ce facem" />
+  <div>
+    {services.map((service) => (
+      <ServiceRow service={service} />
+    ))}
+  </div>
+</Section>

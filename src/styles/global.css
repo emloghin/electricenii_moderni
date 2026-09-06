@@ -55,6 +55,22 @@
   --radius-d3-btn: 0.75rem;
   --shadow-d3-glow: 0 0 48px -12px rgba(200, 249, 78, 0.45);
   --shadow-d3-tile: 0 24px 48px -32px rgba(0, 0, 0, 0.9);
+
+  /* Design 4 — "Lumină Nordică" tokens (additive only, see specs/004-design-4-homepage) */
+  --color-d4-snow: #FCFCFA;
+  --color-d4-paper: #F1F2ED;
+  --color-d4-mist: #E4E6DF;
+  --color-d4-sage: #7C9885;
+  --color-d4-sage-deep: #4F6B58;
+  --color-d4-ink: #1C201D;
+  --color-d4-slate: #5F665F;
+  --color-d4-line: rgba(28, 32, 29, 0.10);
+
+  --font-d4-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-d4-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-d4-plate: 1.25rem;
+  --radius-d4-btn: 0.625rem;
 }
 
 @layer utilities {
@@ -85,5 +101,14 @@
 
   .d3-sheen {
     background-image: linear-gradient(180deg, rgba(255, 255, 255, .06), transparent 40%);
+  }
+
+  /* Design 4 — "Lumină Nordică" utilities (additive only) */
+  .d4-rule {
+    border-top: 1px solid var(--color-d4-line);
+  }
+
+  .d4-tint {
+    background-image: linear-gradient(180deg, rgba(124, 152, 133, .08), transparent 60%);
   }
 }

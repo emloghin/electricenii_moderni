@@ -11,6 +11,64 @@
 
 Agent Builder initialized and ready for work. Implements only from SpecKit's tasks.md — no code before tasks exist.
 
+## 2026-09-07 — Design 4 "Lumină Nordică" shipped
+
+Built and shipped Design 4 of 5 following `specs/004-design-4-homepage/tasks.md`
+(T001–T035 in order), at `/design-4`.
+
+**What was built**
+- `src/layouts/Design4Layout.astro` (own Google-Fonts `<link>` for Outfit +
+  DM Sans, `bg-d4-snow font-d4-body text-d4-ink` body classes) — imports/modifies
+  no existing layout.
+- 17 new components in `src/components/design4/`: primitives (`Container`,
+  `Section` — 12-col editorial grid with label/content slots, `SectionLabel`,
+  `Eyebrow`, `Rule`, `Button`, `Icon` — inline 1.5px line-art with a neutral
+  fallback glyph) and bands (`Header`, `Hero`, `Services`/`ServiceRow`,
+  `About`, `Projects`/`ProjectCaseStudy`/`ProjectRow`,
+  `Testimonials`/`TestimonialQuote`, `ServiceAreas`, `Contact`, `Footer`).
+- `d4-*` tokens (8 colors, 2 fonts, 2 radii) appended to the shared `@theme`
+  block in `src/styles/global.css`, plus `.d4-rule`/`.d4-tint` utilities —
+  no existing token/utility touched. One additive entry added to
+  `src/pages/designs.astro`'s `designs` array.
+- Palette: snow/paper/mist neutrals + single muted sage accent, ink text.
+  No cards, no shadows anywhere — hairline rules + whitespace only. Exactly
+  two radii (plate 20px, button 10px). No numbered indices, no monospace,
+  no serif, no pills.
+- N=1 composition per spec D-016: single project renders as a full-section
+  two-column case study (`ProjectCaseStudy`, with `ProjectRow` ready for
+  future entries but rendering nothing today); single testimonial renders as
+  a large display-font pull-quote with a sage left rule (`TestimonialQuote`,
+  with further quotes stacking below via `.d4-rule` if added). Neither reads
+  as a sparse one-item grid.
+- Reused `services`/`projects`/`testimonials` collections and `src/data/site.ts`
+  read-only; zero content/schema changes.
+
+**Verification performed**
+- `npm run build` exits 0, emits `/`, `/design-2`, `/design-3`, `/design-4`,
+  `/designs` (5 pages).
+- `git diff --stat` shows changes only in `src/styles/global.css` (25
+  insertions, purely additive token/utility block) and `src/pages/designs.astro`
+  (1 line added) plus new files under `src/components/design4/`,
+  `src/layouts/Design4Layout.astro`, `src/pages/design-4.astro` — zero changes
+  to any Design 1/2/3 file.
+- Isolation grep audit (SC-008) on `src/components/design4/**`,
+  `Design4Layout.astro`, `design-4.astro`: zero matches for `blueprint`,
+  `accent-500`, `ink-900`, token-usage `hairline`, `font-mono`, `d2-`, `d3-`,
+  `shadow-`, `rounded-full`; zero cross-design imports.
+- Responsive/overflow check via scratch Playwright script (browser installed
+  to a temp folder outside the repo, not a project dependency): 375/768/1440px
+  all report `scrollWidth === clientWidth` (no overflow); mobile hamburger
+  toggle opens and closes the nav panel correctly.
+- Content-as-data proof: added a temp `_tmp.md` service, rebuilt, confirmed it
+  rendered on all four designs (`/`, `/design-2`, `/design-3`, `/design-4`)
+  with zero code changes, then deleted it and rebuilt clean.
+- Confirmed `/`, `/design-2`, `/design-3` still render correctly (titles/routes
+  unchanged) via preview server.
+- Impeccable-design 7-point gate: all ✅, no ⚠️ (spacing rhythm, single type
+  scale, ink+sage+neutral color system, no placeholder feel, responsive at
+  375/1440px, single solid CTA as strongest element, one button/rule/plate
+  style throughout). Plus distinct-identity and content-honesty checks: ✅.
+
 ## Recent Updates
 
 📌 Team initialized on 2026-09-06

@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+
+interface Props {
+  testimonial: CollectionEntry<'testimonials'>;
+}
+
+const { testimonial } = Astro.props;
+const { author, location, role, rating } = testimonial.data;
+const { Content } = await render(testimonial);
+---
+
+<blockquote class="border-l-2 border-d4-sage pl-6 md:pl-10">
+  <div class="font-d4-display text-2xl font-light leading-snug md:text-4xl [&_p]:mb-0 [&_strong]:font-normal">
+    <Content />
+  </div>
+  <footer class="mt-6 text-sm text-d4-slate">
+    <p class="font-medium text-d4-ink">{author}</p>
+    <p>{role ? `${role} · ` : ''}{location}</p>
+    {rating && (
+      <p class="mt-2 text-d4-sage">{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</p>
+    )}
+  </footer>
+</blockquote>

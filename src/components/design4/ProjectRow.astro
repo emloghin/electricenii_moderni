@@ -1,0 +1,18 @@
+---
+// Rând separat printr-o linie subțire pentru proiecte suplimentare (dincolo de proiectul-far).
+// Nu se afișează nimic azi — există un singur proiect — dar trebuie să fie corect.
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, location, year, summary } = project.data;
+---
+
+<div class="d4-rule py-8">
+  <h4 class="text-lg font-medium">{title}</h4>
+  <p class="mt-1 text-sm text-d4-slate">{location} · {year}</p>
+  <p class="mt-2 text-d4-slate">{summary}</p>
+</div>

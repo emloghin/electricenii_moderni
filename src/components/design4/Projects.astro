@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Section from './Section.astro';
+import SectionLabel from './SectionLabel.astro';
+import ProjectCaseStudy from './ProjectCaseStudy.astro';
+import ProjectRow from './ProjectRow.astro';
+
+const sorted = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const [flagship, ...rest] = sorted;
+---
+
+<Section id="proiecte" band="snow" rule>
+  <SectionLabel slot="label" eyebrow="Proiect de referință" title="Ce am construit" />
+  <div>
+    {flagship && <ProjectCaseStudy project={flagship} />}
+    {rest.length > 0 && (
+      <div class="mt-4">
+        {rest.map((project) => (
+          <ProjectRow project={project} />
+        ))}
+      </div>
+    )}
+  </div>
+</Section>

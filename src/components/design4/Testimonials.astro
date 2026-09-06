@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Section from './Section.astro';
+import SectionLabel from './SectionLabel.astro';
+import TestimonialQuote from './TestimonialQuote.astro';
+
+const sorted = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
+const [spotlight, ...rest] = sorted;
+---
+
+<Section id="testimoniale" band="paper">
+  <SectionLabel slot="label" eyebrow="Testimonial" title="Cuvântul fondatorului" />
+  <div>
+    {spotlight && <TestimonialQuote testimonial={spotlight} />}
+    {rest.length > 0 && (
+      <div class="mt-14 space-y-14">
+        {rest.map((testimonial) => (
+          <div class="d4-rule pt-14">
+            <TestimonialQuote testimonial={testimonial} />
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</Section>
