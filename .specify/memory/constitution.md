@@ -30,11 +30,21 @@ visually distinct (different palette, type scale, layout rhythm) — not a recol
 ### IV. Romanian-Only, I7-Compliant Messaging
 Every user-visible string is Romanian, with correct diacritics. Copy is
 professional and references compliance with Romanian I7 electrical installation
-standards where relevant (services, why-us, guarantees). No fake certifications,
-no invented client names presented as real, no invented numbers presented as
-facts; sample content is plausible and clearly replaceable.
+standards where relevant (services, why-us, guarantees).
 
-### V. Definition of Done = It Builds and It Runs
+### V. Content Honesty (NON-NEGOTIABLE)
+The business is new. The site shows only work that actually exists: at the time
+of writing, exactly one real project (the founder's own passive house in Piatra
+Neamț — full electrical installation plus Home Assistant automation, executed by
+him) and exactly one real testimonial (his own account of living in it). No
+design may invent projects, clients, testimonials, statistics, completed-works
+counts, years of experience, team sizes, certifications or awards — not even as
+"sample" content. Where a collection holds a single entry, the design presents it
+as an intentional flagship case study or spotlight quote, never as a sparse grid
+with empty slots. Only services (capabilities the team can genuinely perform) may
+be described ahead of a delivered project.
+
+### VI. Definition of Done = It Builds and It Runs
 Done means `npm run build` succeeds and `npm run dev` / `npm run preview` serves
 the homepage correctly on phone and laptop widths. No unit tests, no e2e suites,
 no performance budgets, no accessibility audits beyond sane semantic HTML and
@@ -73,4 +83,12 @@ Amendments require a version bump and an update of the version line below.
 Versioning: MAJOR = principle removed/redefined, MINOR = principle or section
 added, PATCH = wording clarification.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-09-06
+**Version**: 1.1.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-09-07
+
+Changelog:
+- **1.1.0** (2026-09-07) — Added Principle V (Content Honesty) as a standalone
+  non-negotiable principle after the content-honesty correction that removed
+  fabricated projects and testimonials; the previous Principle IV wording
+  ("sample content is plausible and clearly replaceable") permitted exactly what
+  the project now forbids. Former Principle V (Definition of Done) renumbered VI.
+- **1.0.0** (2026-09-06) — Initial ratification.
